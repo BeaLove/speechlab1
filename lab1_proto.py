@@ -82,6 +82,11 @@ def preemp(input, p=0.97):
     Note (you can use the function lfilter from scipy.signal)
     """
 
+    a = [1]
+    b = [1,p]
+
+    return signal.lfilter(a,b, input)
+
 def windowing(input):
     """
     Applies hamming window to the input frames.
@@ -94,6 +99,8 @@ def windowing(input):
     Note (you can use the function hamming from scipy.signal, include the sym=0 option
     if you want to get the same results as in the example)
     """
+
+    return signal.hamming(M, 0, input)
 
 def powerSpectrum(input, nfft):
     """

@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import signal
 # DT2119, Lab 1 Feature Extraction
 # - Functions given by the exercise -------------------------------------------- 
 
