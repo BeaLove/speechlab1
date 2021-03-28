@@ -11,7 +11,8 @@ print(example['windowed'].shape)
 result = enframe(samples = example['samples'], winlen = 400, winshift = 200)
 result2 = preemp(result, p=0.97)
 result3 = windowing(result2)
+result4 = powerSpectrum(result3, 512)
 
-plt.pcolormesh(result3)
+plt.pcolormesh(result4)
 
 plt.show()
