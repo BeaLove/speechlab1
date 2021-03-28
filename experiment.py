@@ -15,6 +15,8 @@ print(len(example['frames']))
 print(np.array(result).shape)
 print(np.array(example['frames']).shape)
 
+print(len(example['samples']))
+
 plt.pcolormesh(result)
 
 plt.show()

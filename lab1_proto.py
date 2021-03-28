@@ -40,7 +40,7 @@ def mfcc(samples, winlen = 400, winshift = 200, preempcoeff=0.97, nfft=512, ncep
         N x nceps array with lifetered MFCC coefficients
     """
     mspecs = mspec(samples, winlen, winshift, preempcoeff, nfft, samplingrate)
-    ceps = cepstrum(mspecs, nceps)
+    ceps = cepstrum(mspecs, nceps) 
     return lifter(ceps, liftercoeff)
 
 # Functions to be implemented ----------------------------------
@@ -57,14 +57,16 @@ def enframe(samples, winlen, winshift):
         in the input signal
     """
     result = []
-    for i in range(0, len(samples)-1, winshift):
+    for i in range(0, len(samples)-1 - winshift, winshift):
         window = []
         for j in range(0, winlen):
             if i+j < len(samples):
                 window.append(samples[i+j])
-        result.append(window)
 
-    return result
+        if(i + j) < len(samples):      
+          result.append(window)
+
+    return np.asarray(result)
     
 def preemp(input, p=0.97):
     """
