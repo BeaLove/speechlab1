@@ -119,6 +119,7 @@ def powerSpectrum(input, nfft):
     Note: you can use the function fft from scipy.fftpack
     """
 
+
 def logMelSpectrum(input, samplingrate):
     """
     Calculates the log output of a Mel filterbank when the input is the power spectrum
