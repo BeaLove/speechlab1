@@ -1,9 +1,9 @@
 # DT2119, Lab 1 Feature Extraction
-
-# Function given by the exercise --------------------------------
 from lab1_tools import *
 
-def mspec(samples, winlen = 400, winshift = 200, preempcoeff=0.97, nfft=512, samplingrate=20000)
+# Function given by the exercise ----------------------------------
+
+def mspec(samples, winlen = 400, winshift = 200, preempcoeff=0.97, nfft=512, samplingrate=20000):
     """Computes Mel Filterbank features.
 
     Args:
@@ -56,6 +56,15 @@ def enframe(samples, winlen, winshift):
         numpy array [N x winlen], where N is the number of windows that fit
         in the input signal
     """
+    result = []
+    for i in range(0, len(samples)-1, winshift):
+        window = []
+        for j in range(0, winlen):
+            if i+j < len(samples):
+                window.append(samples[i+j])
+        result.append(window)
+
+    return result
     
 def preemp(input, p=0.97):
     """
