@@ -11,12 +11,14 @@ print(example['windowed'].shape)
 result = enframe(samples = example['samples'], winlen = 400, winshift = 200)
 result2 = preemp(result, p=0.97)
 result3 = windowing(result2)
+result4 = powerSpectrum(result3, 512)
 
 assert np.all(example['frames']) == np.all(result)
 assert np.all(example['preemph']) == np.all(result2)
 assert np.all(example['windowed']) == np.all(result3)
+assert np.all(example['spec']) == np.all(result3)
 
 #print(example['spec'].shape)
-plt.pcolormesh(result3)
+plt.pcolormesh(result4)
 
 plt.show()

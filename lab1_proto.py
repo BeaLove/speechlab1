@@ -1,5 +1,6 @@
 # DT2119, Lab 1 Feature Extraction
 from lab1_tools import *
+from scipy import fftpack
 
 # Function given by the exercise ----------------------------------
 
@@ -118,6 +119,11 @@ def powerSpectrum(input, nfft):
         array of power spectra [N x nfft]
     Note: you can use the function fft from scipy.fftpack
     """
+    fft = fftpack.fft(input, n=nfft, axis=-1)
+    print(fft.shape)
+    result = fft ** 2
+    print(result.shape)
+    return result
 
 
 def logMelSpectrum(input, samplingrate):
@@ -134,6 +140,8 @@ def logMelSpectrum(input, samplingrate):
     Note: use the trfbank function provided in lab1_tools.py to calculate the filterbank shapes and
           nmelfilters
     """
+    nfft = input.shape[1]
+    fbank = trfbank(samplingrate, nfft)
 
 def cepstrum(input, nceps):
     """
