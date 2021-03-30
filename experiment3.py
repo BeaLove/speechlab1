@@ -13,12 +13,12 @@ result2 = preemp(result, p=0.97)
 result3 = windowing(result2)
 result4 = powerSpectrum(result3, 512)
 
-assert np.all(example['frames']) == np.all(result)
-assert np.all(example['preemph']) == np.all(result2)
-assert np.all(example['windowed']) == np.all(result3)
-assert np.all(example['spec']) == np.all(result3)
 
-#print(example['spec'].shape)
+assert np.array_equal(example['frames'], result)
+assert np.array_equal(example['preemph'], result2)
+assert np.array_equal(example['windowed'], result3)
+assert np.array_equal(example['spec'], result4)
+
 plt.pcolormesh(result4)
 
 plt.show()

@@ -121,7 +121,7 @@ def powerSpectrum(input, nfft):
     """
     fft = fftpack.fft(input, n=nfft, axis=-1)
     print(fft.shape)
-    result = fft ** 2
+    result = np.abs(fft) ** 2
     print(result.shape)
     return result
 
