@@ -1,22 +1,21 @@
 import numpy as np
 from lab1_proto import *
 import matplotlib.pyplot as plt
+import numpy.testing as npt
+#from lab1_data import *
 
-example = np.load('lab1_example.npz', allow_pickle=True)['example'].item()
+data = np.load('lab1_data.npz', allow_pickle=True)['data']
 
-#int(example['samplingrate'] / 1000) * 2EX0
+for item in data:
+    print(item)
 
-result = enframe(samples = example['samples'], winlen = 400, winshift = 200)
+    result = mfcc(item['samples'])
 
-print(len(result))
-print(len(example['frames']))
+    print(item['gender'])
+    print(item['speaker'])
 
+    plt.pcolormesh(result)
 
-print(np.array(result).shape)
-print(np.array(example['frames']).shape)
+    plt.show()
 
-print(len(example['samples']))
-
-plt.pcolormesh(result)
-
-plt.show()
+    break

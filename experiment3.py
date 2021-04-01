@@ -14,17 +14,13 @@ result2 = preemp(result, p=0.97)
 result3 = windowing(result2)
 result4 = powerSpectrum(result3, 512)
 result5 = logMelSpectrum(result4, 20000)
-result6 = cepstrum(result5, nceps=13)
-result7 = lifter(result6)
 
 npt.assert_almost_equal(example['frames'], result)
 npt.assert_almost_equal(example['preemph'], result2)
 npt.assert_almost_equal(example['windowed'], result3)
 npt.assert_almost_equal(example['spec'], result4)
 npt.assert_almost_equal(example['mspec'], result5)
-npt.assert_almost_equal(example['mfcc'], result6)
-npt.assert_almost_equal(example['lmfcc'], result7)
 
-plt.pcolormesh(result7)
+plt.pcolormesh(result5)
 
 plt.show()
