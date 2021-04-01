@@ -180,5 +180,4 @@ def dtw(x, y, dist):
     Note that you only need to define the first output for this exercise.
     """
 
-def featureCorrelation(mfccs):
     return
