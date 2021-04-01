@@ -100,11 +100,11 @@ def windowing(input):
     if you want to get the same results as in the example)
     """
 
-    hamming = signal.hamming(input.shape[1], sym=False)
+    hamming = signal.hamming(input.shape[1], sym=0)
 
     print(hamming.shape)
 
-    return input * hamming
+    return  input * hamming  #np.dot(input, hamming)
 
 def powerSpectrum(input, nfft):
     """
