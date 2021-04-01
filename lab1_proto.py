@@ -142,6 +142,9 @@ def logMelSpectrum(input, samplingrate):
     nfft = input.shape[1]
     fbank = trfbank(samplingrate, nfft)
 
+    return np.log(input.dot(fbank.T))
+
+
 def cepstrum(input, nceps):
     """
     Calulates Cepstral coefficients from mel spectrum applying Discrete Cosine Transform
