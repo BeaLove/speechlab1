@@ -102,8 +102,10 @@ def windowing(input):
 
     hamming = signal.hamming(input.shape[1], sym=0)
 
-    print(hamming.shape)
-
+    print("hamming", hamming.shape)
+    print("input", input.shape)
+    out = input * hamming
+    print("out", out.shape)
     return  input * hamming  #np.dot(input, hamming)
 
 def powerSpectrum(input, nfft):
@@ -142,6 +144,9 @@ def logMelSpectrum(input, samplingrate):
     nfft = input.shape[1]
     fbank = trfbank(samplingrate, nfft)
 
+    return np.log(input.dot(fbank.T))
+
+
 def cepstrum(input, nceps):
     """
     Calulates Cepstral coefficients from mel spectrum applying Discrete Cosine Transform
@@ -154,6 +159,9 @@ def cepstrum(input, nceps):
         array of Cepstral coefficients [N x nceps]
     Note: you can use the function dct from scipy.fftpack.realtransforms
     """
+    cepstral = fftpack.dct(input)
+
+    return cepstral[:,:13]
 
 def dtw(x, y, dist):
     """Dynamic Time Warping.
@@ -171,3 +179,5 @@ def dtw(x, y, dist):
 
     Note that you only need to define the first output for this exercise.
     """
+
+def featureCorrelation(mfccs):
