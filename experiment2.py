@@ -1,16 +1,29 @@
 import numpy as np
 from lab1_proto import *
 import matplotlib.pyplot as plt
+import numpy.testing as npt
+#from lab1_data import *
 
-example = np.load('lab1_example.npz', allow_pickle=True)['example'].item()
+data = np.load('lab1_data.npz', allow_pickle=True)['data']
+np.random.shuffle(data)
 
+for index, item in enumerate(data):
 
-#int(example['samplingrate'] / 1000) * 2EX0
+    result = mfcc(item['samples'])
 
-result = enframe(samples = example['samples'], winlen = 400, winshift = 200)
-result2 = preemp(result, p=0.97)
+    frames.append(result)
 
-#plt.pcolormesh(result)
-plt.pcolormesh(result2)
+    print(item['gender'])
+    print(item['speaker'])
 
-plt.show()
+    #plt.pcolormesh(result)
+    #axs[index].set_title(item['gender'] + " " + item['digit'])
+
+    fname = item['gender'] + " " + item['speaker'] + " " + item['digit']
+    plt.pcolormesh(result)
+    
+    print(result.shape)
+    
+    break
+   #plt.savefig("plots/" + fname + ".png")
+

@@ -5,8 +5,13 @@ import numpy.testing as npt
 #from lab1_data import *
 
 data = np.load('lab1_data.npz', allow_pickle=True)['data']
+np.random.shuffle(data)
 
-for item in data:
+fig, axs = plt.subplots(len(data[:5]), sharex=True, sharey=True)
+fig.suptitle('Utterances')
+fig.tight_layout()
+
+for index, item in enumerate(data[:5]):
     print(item)
 
     result = mfcc(item['samples'])
@@ -14,8 +19,8 @@ for item in data:
     print(item['gender'])
     print(item['speaker'])
 
-    plt.pcolormesh(result)
+    axs[index].pcolormesh(result)
+    axs[index].set_title(item['gender'] + " " + item['digit'])
 
-    plt.show()
+plt.show()
 
-    break

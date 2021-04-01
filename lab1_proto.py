@@ -181,3 +181,4 @@ def dtw(x, y, dist):
     """
 
 def featureCorrelation(mfccs):
+    return
