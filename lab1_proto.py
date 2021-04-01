@@ -84,10 +84,9 @@ def preemp(input, p=0.97):
     """
 
     a = [1]
-    b = [1,p]
-
-    return signal.lfilter(a,b, input)
-
+    b = [1, -p]
+    return signal.lfilter(b, a, input)
+    
 def windowing(input):
     """
     Applies hamming window to the input frames.
@@ -101,7 +100,7 @@ def windowing(input):
     if you want to get the same results as in the example)
     """
 
-    hamming = signal.hamming(input.shape[1], 0)
+    hamming = signal.hamming(input.shape[1], sym=False)
 
     print(hamming.shape)
 
