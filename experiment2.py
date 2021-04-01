@@ -1,11 +1,13 @@
+
 import numpy as np
 from lab1_proto import *
 import matplotlib.pyplot as plt
 import numpy.testing as npt
-#from lab1_data import *
-
+from sklearn.mixture import GaussianMixture
 
 data = np.load('lab1_data.npz', allow_pickle=True)['data']
+data = [item for item in data if item['digit'] == '1']
+
 np.random.shuffle(data)
 mfcc_frames = []
 mspec_frames = []
@@ -43,3 +45,4 @@ print("mfcc",  mfcc_matrix.shape)
 print('mspec', mspec_matrix.shape)
    #plt.savefig("plots/" + fname + ".png")
 
+gm = GaussianMixture(n_components=4, random_state=0).fit(mspec_matrix)
