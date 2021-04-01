@@ -163,6 +163,34 @@ def cepstrum(input, nceps):
 
     return cepstral[:,:13]
 
+def _dtw(x,y, dist):
+     """Dynamic Time Warping for one dim
+
+    Args:
+        x, y: arrays of size N and M respectively
+        dist: distance function (can be used in the code as dist(x[i], y[j]))
+
+    Outputs:
+        d: distance between the sequences (scalar)
+    """
+    N = len(x.)
+    M = len(y)
+
+    dtw = np.zeros((N, M))
+
+    for i in range(0, N):
+        for j in range(0, M):
+            dtw[i][j] = math.infinity
+
+    dtw[0][0] = 0
+
+    for i in range(1, N):
+        for j in range(1, M):
+            cost = dist(x[i], y[j])
+            dtw[i][j] = cost + min(dtw[i-1][j], min(dtw[i][j-1], dtw[i-1][j-1]))
+
+    return dtw[N, M]
+
 def dtw(x, y, dist):
     """Dynamic Time Warping.
 
@@ -180,4 +208,11 @@ def dtw(x, y, dist):
     Note that you only need to define the first output for this exercise.
     """
 
-    return
+    D = x.shape[1]
+
+    total_distance = 0
+
+    for d in D:
+        total_distance += _dtw(x[:,d], y[:,d], dist)
+
+    return total_distance / (len(x) + len(y))
