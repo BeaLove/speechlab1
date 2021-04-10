@@ -103,10 +103,10 @@ def windowing(input):
 
     hamming = signal.hamming(input.shape[1], sym=0)
 
-    print("hamming", hamming.shape)
-    print("input", input.shape)
+    #print("hamming", hamming.shape)
+    #print("input", input.shape)
     out = input * hamming
-    print("out", out.shape)
+    #print("out", out.shape)
     return  input * hamming  #np.dot(input, hamming)
 
 def powerSpectrum(input, nfft):
@@ -122,9 +122,9 @@ def powerSpectrum(input, nfft):
     Note: you can use the function fft from scipy.fftpack
     """
     fft = fftpack.fft(input, n=nfft, axis=-1)
-    print(fft.shape)
+    #print(fft.shape)
     result = np.abs(fft) ** 2
-    print(result.shape)
+    #print(result.shape)
     return result
 
 
