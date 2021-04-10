@@ -36,7 +36,7 @@ def gaussian(data_concatenacted, mfcc_frames, labels, digits, n_comps=4):
         title = "predicted phonemes " + str(n_comps) + "components, digit: " + str(digits[idx])
         plt.title(title)
         filename = title + ".png"
-        plt.savefig(filename)
+        plt.savefig("plots/" + filename)
         #print("file saved")
         #plt.show()
     #for i, item in enumerate(predict_labels):
