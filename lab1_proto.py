@@ -214,7 +214,7 @@ def dtw(x, y, dist):
 
     total_distance = 0
 
-    for d in D:
+    for d in range(0, D):
         total_distance += helper_dtw(x[:,d], y[:,d], dist)
 
     return total_distance / (len(x) + len(y))
