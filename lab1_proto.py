@@ -1,7 +1,7 @@
 # DT2119, Lab 1 Feature Extraction
 from lab1_tools import *
 from scipy import fftpack
-
+import math
 # Function given by the exercise ----------------------------------
 
 def mspec(samples, winlen = 400, winshift = 200, preempcoeff=0.97, nfft=512, samplingrate=20000):
@@ -162,18 +162,18 @@ def cepstrum(input, nceps):
     cepstral = fftpack.dct(input)
 
     return cepstral[:,:13]
-
-def _dtw(x,y, dist):
-     """Dynamic Time Warping for one dim
+"""Dynamic Time Warping for one dim
 
     Args:
         x, y: arrays of size N and M respectively
         dist: distance function (can be used in the code as dist(x[i], y[j]))
 
     Outputs:
-        d: distance between the sequences (scalar)
-    """
-    N = len(x.)
+        d: distance between the sequences (scalar) """
+
+def _dtw(x,y, dist):
+
+    N = len(x)
     M = len(y)
 
     dtw = np.zeros((N, M))
