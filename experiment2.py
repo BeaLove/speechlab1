@@ -33,10 +33,12 @@ def gaussian(data_concatenacted, mfcc_frames, labels, digits, n_comps=4):
         plt.scatter(y, predicted)
         plt.xlabel("frames")
         plt.ylabel("predicted component")
+
         title = "predicted phonemes " + str(n_comps) + "components, digit: " + str(digits[idx])
         plt.title(title)
-        filename = title + ".png"
-        plt.savefig(filename)
+        filename = title + "_" + str(idx) + ".png"
+        plt.savefig("plots/" + filename)
+        print(filename)
         #print("file saved")
         #plt.show()
     #for i, item in enumerate(predict_labels):
