@@ -164,26 +164,35 @@ def cepstrum(input, nceps):
 
     return cepstral[:,:13]
 
-def helper_dtw(x,y, dist):
-    N = len(x)
-    M = len(y)
 
-    dtw = np.zeros((N, M))
+def euclideanDistance(digit1, digit2):
+    N = digit1.shape[0]
+    M = digit2.shape[0]
+    distance = np.zeros((N, M))
+    for n in range(N):
+        for m in range(M):
+            distance[n,m] = np.linalg.norm(digit1[n] - digit2[m])
+    return distance
 
-    for i in range(0, N):
-        for j in range(0, M):
-            dtw[i][j] = math.inf
+def helper_dtw(utterance1,utterance2):
+    N = len(utterance1)
+    M = len(utterance2)
 
-    dtw[0][0] = 0
+    #create an empty distance matrix with high values
+    Acc_distance = np.zeros((N,M))
+
+    local_distance = euclideanDistance(utterance1, utterance2)
+    Acc_distance[0,0] = 0
 
     for i in range(1, N):
         for j in range(1, M):
-            cost = dist(x[i], y[j])
-            dtw[i][j] = cost + min(dtw[i-1][j], min(dtw[i][j-1], dtw[i-1][j-1]))
+            #cost = dist(x[i], y[j])
+            #local_distance = euclideanDistance(utterance1, utterance2)
+            Acc_distance[i,j] = local_distance[i,j] + min(Acc_distance[i-1,j], Acc_distance[i,j-1], Acc_distance[i-1,j-1])
 
-    return dtw[N-1, M-1]
+    return Acc_distance[N, M]
 
-def dtw(x, y, dist):
+def dtw(x, y):
     """Dynamic Time Warping.
 
     Args:
@@ -199,12 +208,7 @@ def dtw(x, y, dist):
 
     Note that you only need to define the first output for this exercise.
     """
+    print("in dtw, vector lengths: ")
+    global_distance = helper_dtw(x, y)
 
-    D = x.shape[1]
-
-    total_distance = 0
-
-    for d in range(0, D):
-        total_distance += helper_dtw(x[:,d], y[:,d], dist)
-
-    return total_distance / (len(x) + len(y))
+    return global_distance / (len(x) + len(y))

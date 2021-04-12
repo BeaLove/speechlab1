@@ -54,13 +54,25 @@ def euclideanDistance(digit1, digit2):
             distance[n,m] = np.linalg.norm(digit1[n] - digit2[m])
     return distance
 
+def global_pairwise_distances(mfcc_digits):
+
+    D = len(mfcc_digits)
+    distances = np.zeros((D,D))
+    for i in range(D):
+        for j in range(D):
+            distances[i,j] = dtw(mfcc_digits[i], mfcc_digits[j])
+    return distances
+
+
+
 
 
 for index, item in enumerate(data):
 
     result = mfcc(item['samples'])
-
+    result2 = mspec(item['samples'])
     mfcc_frames.append(result)
+    mspec_frames.append(result2)
     digits.append(item['digit'])
 
     #result2 = mspec(item['samples'])
@@ -87,22 +99,27 @@ for index, item in enumerate(data):
 #print(digits)
 #print(len(mspec_frames))
 mfcc_matrix = np.asarray(mfcc_frames[0])
-#mspec_matrix = np.asarray(mspec_frames[0])
+mspec_matrix = np.asarray(mspec_frames[0])
 for frame in mfcc_frames[1:]:
     mfcc_matrix = np.concatenate((mfcc_matrix, frame), axis=0)
-#for frame in mspec_frames[1:]:
- #   mspec_matrix = np.concatenate((mspec_matrix, frame), axis=0)
-#print("mfcc",  mfcc_matrix.shape)
-#print('mspec', mspec_matrix.shape)
+for frame in mspec_frames[1:]:
+    mspec_matrix = np.concatenate((mspec_matrix, frame), axis=0)
+print("mfcc",  mfcc_matrix.shape)
+print('mspec', mspec_matrix.shape)
 
 #featureCorrelate(mfcc_matrix)
 #featureCorrelate(mspec_matrix)
 
    #plt.savefig("plots/" + fname + ".png")
 
-gaussian(mfcc_matrix, mfcc_frames, labels, digits, n_comps=4)
+#gaussian(mfcc_matrix, mfcc_frames, labels, digits, n_comps=4)
 
 #distance_matrix = euclideanDistance(mfcc_frames[0], mfcc_frames[1])
+
+distances = global_pairwise_distances(mfcc_frames)
+
+plt.pcolormesh(distances)
+plt.show()
 
 
 
