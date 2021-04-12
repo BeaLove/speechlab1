@@ -1,6 +1,7 @@
 # DT2119, Lab 1 Feature Extraction
 from lab1_tools import *
 from scipy import fftpack
+import math
 
 # Function given by the exercise ----------------------------------
 
@@ -163,7 +164,7 @@ def cepstrum(input, nceps):
 
     return cepstral[:,:13]
 
-def _dtw(x,y, dist):
+def helper_dtw(x,y, dist):
     N = len(x)
     M = len(y)
 
@@ -171,7 +172,7 @@ def _dtw(x,y, dist):
 
     for i in range(0, N):
         for j in range(0, M):
-            dtw[i][j] = math.infinity
+            dtw[i][j] = math.inf
 
     dtw[0][0] = 0
 
@@ -180,7 +181,7 @@ def _dtw(x,y, dist):
             cost = dist(x[i], y[j])
             dtw[i][j] = cost + min(dtw[i-1][j], min(dtw[i][j-1], dtw[i-1][j-1]))
 
-    return dtw[N, M]
+    return dtw[N-1, M-1]
 
 def dtw(x, y, dist):
     """Dynamic Time Warping.
@@ -203,7 +204,7 @@ def dtw(x, y, dist):
 
     total_distance = 0
 
-    for d in D:
-        total_distance += _dtw(x[:,d], y[:,d], dist)
+    for d in range(0, D):
+        total_distance += helper_dtw(x[:,d], y[:,d], dist)
 
     return total_distance / (len(x) + len(y))

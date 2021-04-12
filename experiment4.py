@@ -6,7 +6,6 @@ from sklearn.mixture import GaussianMixture
 from scipy.cluster.hierarchy import linkage
 from scipy.cluster.hierarchy import dendrogram
 from scipy.spatial import distance
-import seaborn as sns
 
 data = np.load('lab1_data.npz', allow_pickle=True)['data']
 
@@ -30,12 +29,10 @@ mfccs = np.concatenate(mfccs)
 
 D = np.zeros([44, 44])
 
-for i in range(44):
-    for j in range(44):
+for i in range(2):
+    for j in range(2):
         print(str(i) + " " + str(j))
         D[i][j]  = dtw(mfcc(data[i]['samples']),mfcc(data[j]['samples']), distance.euclidean)
-
-sns.reset_defaults()
 
 plt.pcolormesh(D)
 plt.colorbar()
@@ -43,4 +40,10 @@ plt.colorbar()
 fname = 'dtw'
 
 plt.savefig("plots/" + fname + ".png")
+plt.show()
+
+dendrogram(linkage(D,method='complete'),labels = tidigit2labels(data))
+
+plt.savefig("plots/dendrogram.png")
+
 plt.show()
