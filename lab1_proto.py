@@ -166,6 +166,7 @@ def cepstrum(input, nceps):
 
 
 def euclideanDistance(digit1, digit2):
+
     N = digit1.shape[0]
     M = digit2.shape[0]
     distance = np.zeros((N, M))
@@ -190,7 +191,7 @@ def helper_dtw(utterance1,utterance2):
             #local_distance = euclideanDistance(utterance1, utterance2)
             Acc_distance[i,j] = local_distance[i,j] + min(Acc_distance[i-1,j], Acc_distance[i,j-1], Acc_distance[i-1,j-1])
 
-    return Acc_distance[N, M]
+    return Acc_distance[N-1, M-1]
 
 def dtw(x, y):
     """Dynamic Time Warping.
