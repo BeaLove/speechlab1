@@ -21,6 +21,6 @@ npt.assert_almost_equal(example['windowed'], result3)
 npt.assert_almost_equal(example['spec'], result4)
 npt.assert_almost_equal(example['mspec'], result5)
 
-plt.pcolormesh(result5)
+plt.pcolormesh(result4)
 
 plt.show()
